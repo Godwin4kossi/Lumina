@@ -32,7 +32,7 @@
       e.stopPropagation();
       var $input = $(this).siblings("input.qty");
       var currentVal = parseInt($input.val()) || 1;
-      var min = parseInt($input.attr("min")) || 1;
+      var min = parseInt($input.attr("min")) || 1; 
 
       if (currentVal > min) {
         $input.val(currentVal - 1);
@@ -50,7 +50,7 @@
       } else {
         $svg.attr("fill", "none");
         console.log("Removed from wishlist");
-      }
+      }  
     });
 
 

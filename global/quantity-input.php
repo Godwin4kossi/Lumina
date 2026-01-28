@@ -5,7 +5,7 @@
  * This template can be overridden by copying it to lumina/woocommerce/global/quantity-input.php.
  *
  * @package WooCommerce\Templates
- * @version 7.8.0
+ * @version 7.8.0 
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -25,7 +25,7 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
 		aria-label="<?php esc_attr_e( 'Product quantity', 'woocommerce' ); ?>"
 		size="4"
 		min="<?php echo esc_attr( $min_value ); ?>"
-		max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>"
+		max="<?php echo esc_attr( 0 < $max_value ? $max_value : '' ); ?>" 
 		<?php if ( ! $readonly ) : ?>
 			step="<?php echo esc_attr( $step ); ?>"
 			placeholder="<?php echo esc_attr( $placeholder ); ?>"
@@ -34,7 +34,7 @@ $label = ! empty( $args['product_name'] ) ? sprintf( esc_html__( '%s quantity', 
 		<?php endif; ?>
 		<?php if ( $readonly ) : ?>
 			readonly="readonly"
-		<?php endif; ?>
+		<?php endif; ?> 
 	/>
 	
 	<button type="button" class="qty-btn plus" aria-label="<?php esc_attr_e( 'Increase quantity', 'woocommerce' ); ?>">+</button>

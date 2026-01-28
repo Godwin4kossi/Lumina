@@ -826,14 +826,14 @@ html, body {
     padding-left: 0 !important;
     padding-right: 0 !important;
     max-width: 1200px !important;
-}
+} 
 
 .product-main-container,
 .woocommerce .product-main-container,
 .woocommerce div.product .product-main-container {
     width: 100% !important;
     max-width: 100% !important;
-    padding-left: 0 !important;
+    padding-left: 0 !important; 
     padding-right: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;

@@ -7,5 +7,5 @@ A custom WordPress child theme that transforms the WooCommerce single product pa
 This solution customizes a WooCommerce product page to match the provided design mockup using only:
 - WordPress Core
 - WooCommerce Plugin
-- Twenty Twenty-Five Theme
+- Twenty Twenty-Five Theme 
 - Custom Child Theme (this repository)

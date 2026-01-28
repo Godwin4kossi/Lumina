@@ -155,7 +155,7 @@
                 'box-shadow': '0 2px 8px rgba(0,0,0,0.1)'
             };
             
-            $upButton.css({...buttonStyles, 'top': '-50px'});
+            $upButton.css({...buttonStyles, 'top': '-50px'}); 
             $downButton.css({...buttonStyles, 'bottom': '-50px'});
             
             $upButton.find('svg').css('transform', 'rotate(90deg)');
@@ -175,7 +175,7 @@
                         'border-color': '#e5e5e5'
                     });
                     $(this).find('path').css('fill', 'currentColor');
-                }
+                } 
             );
             
             $thumbnailSection.css('position', 'relative');

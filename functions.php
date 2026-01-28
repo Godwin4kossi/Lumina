@@ -5,7 +5,7 @@
  * 
  * @package TwentyTwentyFive-Child
  */
-
+ 
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
@@ -23,7 +23,7 @@ function twentytwentyfive_child_enqueue_styles()
         array('twentytwentyfive-parent-style'),
         wp_get_theme()->get('Version')
     );
-
+ 
 
     wp_enqueue_script(
         'twentytwentyfive-child-script',
