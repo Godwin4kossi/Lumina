@@ -5,26 +5,29 @@
  * 
  * @package TwentyTwentyFive-Child
  */
- 
+
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
 }
 
-
+/**
+ * Enqueue parent and child theme styles
+ */
 function twentytwentyfive_child_enqueue_styles()
 {
+    // Enqueue parent theme stylesheet
     wp_enqueue_style('twentytwentyfive-parent-style', get_template_directory_uri() . '/style.css');
 
-
+    // Enqueue child theme stylesheet
     wp_enqueue_style(
         'twentytwentyfive-child-style',
         get_stylesheet_directory_uri() . '/style.css',
         array('twentytwentyfive-parent-style'),
         wp_get_theme()->get('Version')
     );
- 
 
+    // Enqueue custom JavaScript
     wp_enqueue_script(
         'twentytwentyfive-child-script',
         get_stylesheet_directory_uri() . '/js/custom.js',
@@ -35,23 +38,30 @@ function twentytwentyfive_child_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'twentytwentyfive_child_enqueue_styles');
 
-
+/**
+ * Add promotional banner to header
+ */
 function add_promo_banner()
 {
     echo '<div class="site-header-promo">Free domestic shipping on orders over $100</div>';
 }
 add_action('wp_head', 'add_promo_banner', 1);
 
+/**
+ * Customize product page layout
+ */
 function custom_product_page_layout()
 {
     if (is_product()) {
-
+        // Remove default WooCommerce actions
         remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
 
-
+        // Add custom actions in correct order
         add_action('woocommerce_single_product_summary', 'custom_product_category', 3);
+        // Title stays at priority 5 (default)
+        // Rating stays at priority 10 (default)
         add_action('woocommerce_single_product_summary', 'custom_product_price', 15);
         add_action('woocommerce_single_product_summary', 'custom_product_short_description', 17);
         add_action('woocommerce_single_product_summary', 'custom_size_selector', 28);
@@ -63,7 +73,9 @@ function custom_product_page_layout()
 }
 add_action('wp', 'custom_product_page_layout');
 
-
+/**
+ * Display product category
+ */
 function custom_product_category()
 {
     global $product;
@@ -73,7 +85,9 @@ function custom_product_category()
     }
 }
 
-
+/**
+ * Custom price display with discount badge
+ */
 function custom_product_price()
 {
     global $product;
@@ -101,7 +115,9 @@ function custom_product_price()
     echo '</p>';
 }
 
-
+/**
+ * Display product short description/excerpt (below price)
+ */
 function custom_product_short_description()
 {
     global $post;
@@ -115,7 +131,9 @@ function custom_product_short_description()
     echo '</div>';
 }
 
-
+/**
+ * Display product full description/details (below features)
+ */
 function custom_product_full_description()
 {
     global $post;
@@ -132,7 +150,9 @@ function custom_product_full_description()
     echo '</div>';
 }
 
-
+/**
+ * Custom size selector
+ */
 function custom_size_selector()
 {
 ?>
@@ -147,7 +167,9 @@ function custom_size_selector()
 <?php
 }
 
-
+/**
+ * Custom wishlist button
+ */
 function custom_wishlist_button()
 {
 ?>
@@ -159,7 +181,9 @@ function custom_wishlist_button()
 <?php
 }
 
-
+/**
+ * Custom shipping information
+ */
 function custom_shipping_info()
 {
 ?>
@@ -169,7 +193,9 @@ function custom_shipping_info()
 <?php
 }
 
-
+/**
+ * Custom product features section
+ */
 function custom_product_features()
 {
 ?>
@@ -220,6 +246,9 @@ function custom_product_features()
 <?php
 }
 
+/**
+ * Wrap product content in custom container
+ */
 function woocommerce_product_container_start()
 {
     echo '<div class="product-main-container">';
@@ -233,7 +262,9 @@ function woocommerce_product_container_end()
 add_action('woocommerce_before_single_product_summary', 'woocommerce_product_container_start', 5);
 add_action('woocommerce_after_single_product_summary', 'woocommerce_product_container_end', 5);
 
-
+/**
+ * Customize quantity input args
+ */
 add_filter('woocommerce_quantity_input_args', 'custom_quantity_input_args', 10, 2);
 function custom_quantity_input_args($args, $product)
 {
@@ -243,12 +274,17 @@ function custom_quantity_input_args($args, $product)
     return $args;
 }
 
-
+/**
+ * Remove breadcrumbs
+ */
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 
+/**
+ * Modify product tabs
+ */
 function custom_product_tabs($tabs)
 {
-
+    // Rename tabs if needed
     if (isset($tabs['description'])) {
         $tabs['description']['title'] = 'Detail';
     }
@@ -264,6 +300,9 @@ add_action('wp_footer', function () {
 });
 
 
+/**
+ * Add custom header navigation
+ */
 function custom_header_navigation()
 {
 ?>
@@ -311,21 +350,24 @@ function custom_header_navigation()
 <?php
 }
 
+// Override the default header if needed
 function remove_default_header()
 {
     remove_action('wp_head', '_wp_render_title_tag', 1);
 }
 add_action('after_setup_theme', 'remove_default_header');
 
-
+/**
+ * Redirect homepage to product page
+ */
 function redirect_home_to_product()
 {
     if (is_front_page() && !is_admin()) {
-        $product_id = 63; 
-        $product_url = get_permalink($product_id);
+        $product_slug = 'lumina';
+        $product = get_page_by_path($product_slug, OBJECT, 'product');
 
-        if ($product_url) {
-            wp_redirect($product_url, 301);
+        if ($product) {
+            wp_redirect(get_permalink($product->ID), 301);
             exit;
         }
     }
